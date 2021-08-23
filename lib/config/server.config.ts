@@ -39,7 +39,7 @@ class App {
             swaggerDocument.info.version = process.env.npm_package_version || '0.0.1';
             swaggerDocument.info.title = process.env.npm_package_name || 'express-boilerplate';
             //@ts-ignore
-            swaggerDocument.host = process.env.EXPRESS_APP_BASE_URL || `http://localhost:${process.env.EXPRESS_APP_PORT}/api/`;
+            swaggerDocument.host = process.env.EXPRESS_APP_BASE_URL || `http://localhost:${process.env.PORT}/api/`;
             this.app.use('/api/swagger', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
         }
 

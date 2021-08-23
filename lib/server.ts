@@ -1,7 +1,7 @@
 import app from './config/server.config';
 import { GlobalErrorHandler } from './modules/common/middleware/global-error-handler.middleware';
 
-const PORT = process.env.EXPRESS_APP_PORT || 8200;
+const PORT = process.env.PORT || 8200;
 
 process.on('uncaughtException', (err) => {
     console.log('UNCAUGHT EXCEPTION! Shutting down...');
