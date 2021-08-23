@@ -1,6 +1,6 @@
 {
   "name": "js-project-wizard-api",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "JS Project Wizard API",
   "main": "server.js",
   "author": "Sivantha",
