@@ -11,7 +11,7 @@ var dotenvExpand = require('dotenv-expand');
 
 class App {
     public app: express.Application;
-    private mongoConnection = new MongoConnection();
+    // private mongoConnection = new MongoConnection();
 
     constructor() {
         this.setConfig();
@@ -22,7 +22,7 @@ class App {
         const env = dotenv.config();
         dotenvExpand(env);
         this.app = express();
-        this.mongoConnection.connect();
+        // this.mongoConnection.connect();
         this.app.use(express.json({ limit: '25mb' }));
         this.app.use(express.urlencoded({ extended: false, limit: '25mb' }));
 
