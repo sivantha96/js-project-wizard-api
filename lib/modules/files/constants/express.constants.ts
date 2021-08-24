@@ -4,14 +4,15 @@ export const expressTsConfigJson = 'http://raw.github.com/sivantha96/js-project-
 export const expressGitIgnore = 'http://raw.github.com/sivantha96/js-project-wizard/main/express/.gitignore';
 export const expressPrettierrc = 'http://raw.github.com/sivantha96/js-project-wizard/main/express/.prettierrc';
 export const expressEslintrc = 'http://raw.github.com/sivantha96/js-project-wizard/main/express/.eslintrc.js';
-export const expressEnv = 'http://raw.github.com/sivantha96/js-project-wizard/main/express/.env';
+export const expressEnvProd = 'http://raw.github.com/sivantha96/js-project-wizard/main/express/.env.production';
+export const expressEnvLocal = 'http://raw.github.com/sivantha96/js-project-wizard/main/express/.env.local';
 
 // lib
 export const expressRoutes = 'http://raw.github.com/sivantha96/js-project-wizard/main/express/lib/routes.ts';
 export const expressServer = 'http://raw.github.com/sivantha96/js-project-wizard/main/express/lib/server.ts';
 
 // lib/config
-export const expressServerConfig = 'http://raw.github.com/sivantha96/js-project-wizard/main/express/lib/config/server.config.ts';
+export const expressServerConfig = (dbType) => `http://raw.github.com/sivantha96/js-project-wizard/main/express/lib/config/server-${dbType}.config.ts`;
 export const expressMongoConfig = 'http://raw.github.com/sivantha96/js-project-wizard/main/express/lib/config/mongo.config.ts';
 export const expressSwagger = 'http://raw.github.com/sivantha96/js-project-wizard/main/express/lib/config/swagger.json';
 

@@ -3,7 +3,8 @@ import { Request, Response } from 'express';
 import {
     expressCommonConstants,
     expressCommonRoutes,
-    expressEnv,
+    expressEnvProd,
+    expressEnvLocal,
     expressErrorConstants,
     expressErrorHandler,
     expressEslintrc,
@@ -26,6 +27,8 @@ export class FilesController {
         const name = req.query.name;
         const description = req.query.description;
         const author = req.query.author;
+        const dbType = req.query.dbType;
+        const dbName = req.query.dbName;
         try {
             const packageJson = {
                 name: 'package.json',
@@ -36,6 +39,25 @@ export class FilesController {
             packageJson.content.name = name;
             packageJson.content.description = description;
             packageJson.content.author = author;
+
+            const envProd = {
+                name: '.env.production',
+                path: '.',
+                content: (await axios.get(expressEnvProd)).data,
+            };
+            const envLocal = {
+                name: '.env.local',
+                path: '.',
+                content: (await axios.get(expressEnvLocal)).data,
+            };
+
+            envProd.content = envProd.content + `\EXPRESS_APP_NAME=${name}`;
+            envLocal.content = envLocal.content + `\EXPRESS_APP_NAME=${name}`;
+
+            if (dbType === 'mongo') {
+                envProd.content = envProd.content + `\nEXPRESS_APP_DB_URL=mongodb://localhost:27017/${dbName}`;
+                envLocal.content = envLocal.content + `\nEXPRESS_APP_DB_URL=mongodb://localhost:27017/${dbName}`;
+            }
 
             const jsonFiles = [
                 packageJson,
@@ -56,6 +78,8 @@ export class FilesController {
                 },
             ];
             const otherFiles = [
+                envProd,
+                envLocal,
                 {
                     name: '.gitignore',
                     path: '.',
@@ -65,16 +89,6 @@ export class FilesController {
                     name: '.eslintrc.js',
                     path: '.',
                     content: (await axios.get(expressEslintrc)).data,
-                },
-                {
-                    name: '.env',
-                    path: '.',
-                    content: (await axios.get(expressEnv)).data,
-                },
-                {
-                    name: '.env.local',
-                    path: '.',
-                    content: (await axios.get(expressEnv)).data,
                 },
                 {
                     name: 'routes.ts',
@@ -89,13 +103,17 @@ export class FilesController {
                 {
                     name: 'server.config.ts',
                     path: './lib/config',
-                    content: (await axios.get(expressServerConfig)).data,
+                    content: (await axios.get(expressServerConfig(dbType))).data,
                 },
-                {
-                    name: 'mongo.config.ts',
-                    path: './lib/config',
-                    content: (await axios.get(expressMongoConfig)).data,
-                },
+                ...(dbType === 'none'
+                    ? []
+                    : [
+                          {
+                              name: 'mongo.config.ts',
+                              path: './lib/config',
+                              content: (await axios.get(expressMongoConfig)).data,
+                          },
+                      ]),
                 {
                     name: 'routes.ts',
                     path: './lib/modules/common',
