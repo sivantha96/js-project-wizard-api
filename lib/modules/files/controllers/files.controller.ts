@@ -51,8 +51,8 @@ export class FilesController {
                 content: (await axios.get(expressEnvLocal)).data,
             };
 
-            envProd.content = envProd.content + `\EXPRESS_APP_NAME=${name}`;
-            envLocal.content = envLocal.content + `\EXPRESS_APP_NAME=${name}`;
+            envProd.content = envProd.content + `\nEXPRESS_APP_NAME=${name}`;
+            envLocal.content = envLocal.content + `\nEXPRESS_APP_NAME=${name}`;
 
             if (dbType === 'mongo') {
                 envProd.content = envProd.content + `\nEXPRESS_APP_DB_URL=mongodb://localhost:27017/${dbName}`;
