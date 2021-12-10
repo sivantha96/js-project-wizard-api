@@ -3,7 +3,6 @@ import { Request, Response } from 'express';
 import {
     expressCommonConstants,
     expressCommonRoutes,
-    expressEnvProd,
     expressEnvLocal,
     expressErrorConstants,
     expressErrorHandler,
@@ -40,22 +39,15 @@ export class FilesController {
             packageJson.content.description = description;
             packageJson.content.author = author;
 
-            const envProd = {
-                name: '.env.production',
-                path: '.',
-                content: (await axios.get(expressEnvProd)).data,
-            };
             const envLocal = {
                 name: '.env.local',
                 path: '.',
                 content: (await axios.get(expressEnvLocal)).data,
             };
 
-            envProd.content = envProd.content + `\nEXPRESS_APP_NAME=${name}`;
             envLocal.content = envLocal.content + `\nEXPRESS_APP_NAME=${name}`;
 
             if (dbType === 'mongo') {
-                envProd.content = envProd.content + `\nEXPRESS_APP_DB_URL=mongodb://localhost:27017/${dbName}`;
                 envLocal.content = envLocal.content + `\nEXPRESS_APP_DB_URL=mongodb://localhost:27017/${dbName}`;
             }
 
@@ -78,7 +70,6 @@ export class FilesController {
                 },
             ];
             const otherFiles = [
-                envProd,
                 envLocal,
                 {
                     name: '.gitignore',

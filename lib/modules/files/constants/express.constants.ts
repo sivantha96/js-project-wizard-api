@@ -4,7 +4,6 @@ export const expressTsConfigJson = 'http://raw.github.com/sivantha96/js-project-
 export const expressGitIgnore = 'http://raw.github.com/sivantha96/js-project-wizard/main/express/.gitignore';
 export const expressPrettierrc = 'http://raw.github.com/sivantha96/js-project-wizard/main/express/.prettierrc';
 export const expressEslintrc = 'http://raw.github.com/sivantha96/js-project-wizard/main/express/.eslintrc.js';
-export const expressEnvProd = 'http://raw.github.com/sivantha96/js-project-wizard/main/express/.env.production';
 export const expressEnvLocal = 'http://raw.github.com/sivantha96/js-project-wizard/main/express/.env.local';
 
 // lib
