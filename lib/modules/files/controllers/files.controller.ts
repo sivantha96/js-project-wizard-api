@@ -167,7 +167,7 @@ export class FilesController {
                 default:
                     break;
             }
-            let mainFile = `const fs = require("fs"); const { series } = require("async"); const { execSync } = require("child_process"); series([ () => {console.log("Setting up the project boilerplate"); execSync("npx react-native init ${name} --template react-native-template-awesome@${templateVersion}"); var pkg=require('./package.json'); pkg.author='${author}'; pkg.description='${description}'; fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2)); execSync("git init -q"); execSync("git add ."); execSync("git commit -m 'Initial commit'"); console.log("Project Initialized Successfully.")},]);`;
+            let mainFile = `const fs = require("fs"); const { series } = require("async"); const { execSync } = require("child_process"); series([ () => {console.log("Setting up the project boilerplate"); execSync("npx react-native init ${name} --template react-native-template-awesome@${templateVersion}"); execSync("cd ${name}"); var pkg=require('./package.json'); pkg.author='${author}'; pkg.description='${description}'; fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2)); execSync("git init -q"); execSync("git add ."); execSync("git commit -m 'Initial commit'"); console.log("Project Initialized Successfully.")},]);`;
             res.send(mainFile);
         } catch (error) {}
     }
