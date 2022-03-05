@@ -11,7 +11,7 @@ export const expressRoutes = 'http://raw.github.com/sivantha96/js-project-wizard
 export const expressServer = 'http://raw.github.com/sivantha96/js-project-wizard/main/express/lib/server.ts';
 
 // lib/config
-export const expressServerConfig = (dbType) => `http://raw.github.com/sivantha96/js-project-wizard/main/express/lib/config/server-${dbType}.config.ts`;
+export const expressServerConfig = (dbType) => `http://raw.github.com/sivantha96/js-project-wizard/main/express/lib/config/server${dbType}.config.ts`;
 export const expressMongoConfig = 'http://raw.github.com/sivantha96/js-project-wizard/main/express/lib/config/mongo.config.ts';
 export const expressSwagger = 'http://raw.github.com/sivantha96/js-project-wizard/main/express/lib/config/swagger.json';
 

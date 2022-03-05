@@ -94,7 +94,7 @@ export class FilesController {
                 {
                     name: 'server.config.ts',
                     path: './lib/config',
-                    content: (await axios.get(expressServerConfig(dbType))).data,
+                    content: (await axios.get(expressServerConfig(dbType === 'none' ? '' : '-mongo'))).data,
                 },
                 ...(dbType === 'none'
                     ? []
