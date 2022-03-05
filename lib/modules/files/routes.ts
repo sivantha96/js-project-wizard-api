@@ -5,8 +5,12 @@ import { FilesController } from './controllers/files.controller';
 export class FilesRoutes {
     private filesController = new FilesController();
     public route(app: Application) {
-        app.get('/express', (req: Request, res: Response) => {
-            this.filesController.getExpressScript(req, res);
+        app.post('/express', (req: Request, res: Response) => {
+            this.filesController.generateExpressScript(req, res);
+        });
+
+        app.post('/react-native', (req: Request, res: Response) => {
+            this.filesController.generateReactNativeScript(req, res);
         });
     }
 }

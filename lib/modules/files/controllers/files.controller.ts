@@ -22,12 +22,8 @@ import {
 
 export class FilesController {
     // get express script
-    public async getExpressScript(req: Request, res: Response) {
-        const name = req.query.name;
-        const description = req.query.description;
-        const author = req.query.author;
-        const dbType = req.query.dbType;
-        const dbName = req.query.dbName;
+    public async generateExpressScript(req: Request, res: Response) {
+        const { name, description, author, dbType, dbName } = req.body;
         try {
             const packageJson = {
                 name: 'package.json',
@@ -153,6 +149,25 @@ export class FilesController {
 
             mainFile += `execSync("npm install"); execSync("git add ."); execSync("git commit -m 'Initial commit'"); console.log("Project Initialized Successfully.")},]);`;
 
+            res.send(mainFile);
+        } catch (error) {}
+    }
+
+    // generate react native script
+    public async generateReactNativeScript(req: Request, res: Response) {
+        try {
+            const { name, description, author, hasReactNavigation, hasRedux, hasTheming, hasI18n } = req.body;
+
+            let templateVersion;
+            switch (true) {
+                case hasReactNavigation && hasRedux && !hasTheming && !hasI18n:
+                    templateVersion = '0.0.1';
+                    break;
+
+                default:
+                    break;
+            }
+            let mainFile = `const fs = require("fs"); const { series } = require("async"); const { execSync } = require("child_process"); series([ () => {console.log("Setting up the project boilerplate"); execSync("npx react-native init ${name} --template react-native-template-awesome@${templateVersion}"); var pkg=require('./package.json'); pkg.author='${author}'; pkg.description='${description}'; fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2)); execSync("git init -q"); execSync("git add ."); execSync("git commit -m 'Initial commit'"); console.log("Project Initialized Successfully.")},]);`;
             res.send(mainFile);
         } catch (error) {}
     }
