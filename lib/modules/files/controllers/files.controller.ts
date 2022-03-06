@@ -164,6 +164,14 @@ export class FilesController {
                     templateVersion = '0.0.1';
                     break;
 
+                case hasReactNavigation && !hasRedux && !hasTheming && !hasI18n:
+                    templateVersion = '0.0.3';
+                    break;
+
+                case hasRedux && !hasReactNavigation && !hasTheming && !hasI18n:
+                    templateVersion = '0.0.4';
+                    break;
+
                 default:
                     break;
             }
