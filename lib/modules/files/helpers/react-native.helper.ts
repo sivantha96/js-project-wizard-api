@@ -8,25 +8,27 @@ interface WriteFile {
 }
 
 export const getExtraFiles = (features: FeatureContent[], projectName: string) => {
-    return new Promise((resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
         let content = '';
         const writeFiles: WriteFile[] = [];
 
-        features.forEach(async (feature) => {
+        const outerPromises = features.map(async (feature) => {
             try {
-                feature.files.forEach(async (file) => {
+                const innerPromises = feature.files.map(async (file) => {
                     const fileContent = (await axios.get(feature.location + feature.path + file)).data;
                     writeFiles.push({
                         name: file,
                         path: `./${projectName}/${feature.path}`,
                         content: fileContent,
                     });
-                    console.log(fileContent, file)
                 });
+                await Promise.all(innerPromises);
             } catch (error) {
                 reject(error);
             }
         });
+
+        await Promise.all(outerPromises);
 
         writeFiles.forEach((file) => {
             content += ` if(!fs.existsSync("${file.path}")){fs.mkdirSync("${file.path}", { recursive: true });} fs.writeFileSync('${
@@ -34,8 +36,7 @@ export const getExtraFiles = (features: FeatureContent[], projectName: string) =
             }/${file.name}', ${JSON.stringify(file.content)});`;
         });
 
-        console.log(content, 'content - getExtraFiles')
-
+        console.log(content, 'content - getExtraFiles');
 
         resolve(content);
     });
@@ -45,8 +46,8 @@ export const generateMainFile = (name: string, templateVersion: string, author: 
     return new Promise(async (resolve, reject) => {
         try {
             const extra = await getExtraFiles(files, name);
-            console.log(extra, 'extra - generateMainFile')
-            console.log(JSON.stringify(files), 'files - generateMainFile')
+            console.log(extra, 'extra - generateMainFile');
+            console.log(JSON.stringify(files), 'files - generateMainFile');
             const mainFile = `
 
 const fs = require("fs"); 
