@@ -19,7 +19,9 @@ import {
     expressSwagger,
     expressTsConfigJson,
 } from '../constants/express.constants';
+import { THEME } from '../constants/react-native.constants';
 import { generateMainFile } from '../helpers/react-native.helper';
+import { FeatureContent } from '../types/react-native.types';
 
 export class FilesController {
     // get express script
@@ -191,7 +193,11 @@ export class FilesController {
                 default:
                     break;
             }
-            const mainFile = generateMainFile(name, templateVersion, author, description);
+            const files: FeatureContent[] = [];
+            if (hasTheming) {
+                files.push(THEME);
+            }
+            const mainFile = await generateMainFile(name, templateVersion, author, description, files);
             res.send(mainFile);
         } catch (error) {}
     }
