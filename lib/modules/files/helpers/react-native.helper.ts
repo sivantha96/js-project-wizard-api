@@ -31,7 +31,11 @@ export const getExtraFiles = (features: FeatureContent[], projectName: string) =
         await Promise.all(outerPromises);
 
         writeFiles.forEach((file) => {
-            content += ` if(!fs.existsSync("${file.path}")){fs.mkdirSync("${file.path}", { recursive: true });} fs.writeFileSync('${file.path}/${file.name}', \`${file.content}\`);`;
+            content += `
+if(!fs.existsSync("${file.path}")) {
+    fs.mkdirSync("${file.path}", { recursive: true });
+} 
+fs.writeFileSync('${file.path}/${file.name}', \`${file.content}\`);`;
         });
 
         console.log(content, 'content - getExtraFiles');
@@ -64,13 +68,13 @@ fs.writeFileSync('./${name}/package.json', JSON.stringify(pkg, null, 2));
 
 ${extra}
 
-execSync("cd ${name} && git init -q"); 
+execSync(\`cd ${name} && git init -q\`); 
 
-execSync("cd ${name} && git add ."); 
+execSync(\`cd ${name} && git add .\`); 
 
-execSync("cd ${name} &&  git commit -m 'Initial commit'"); 
+execSync(\`cd ${name} &&  git commit -m 'Initial commit'\`); 
 
-console.log("Project Initialized Successfully.")},]);
+console.log(\`Project Initialized Successfully.\`)},]);
 
 
 
