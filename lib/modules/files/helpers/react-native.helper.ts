@@ -38,8 +38,6 @@ if(!fs.existsSync("${file.path}")) {
 fs.writeFileSync('${file.path}/${file.name}', \`${file.content}\`);`;
         });
 
-        console.log(content, 'content - getExtraFiles');
-
         resolve(content);
     });
 };
@@ -48,8 +46,6 @@ export const generateMainFile = (name: string, templateVersion: string, author: 
     return new Promise(async (resolve, reject) => {
         try {
             const extra = await getExtraFiles(files, name);
-            console.log(extra, 'extra - generateMainFile');
-            console.log(JSON.stringify(files), 'files - generateMainFile');
             const mainFile = `
 
 const fs = require("fs"); 

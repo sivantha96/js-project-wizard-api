@@ -161,7 +161,7 @@ export class FilesController {
         try {
             const { name, description, author, hasReactNavigation, hasRedux, hasVectorIcons, hasTheming, hasI18n } = req.body;
 
-            let templateVersion;
+            let templateVersion = '0.0.1'; 
             switch (true) {
                 case hasReactNavigation && hasRedux && hasVectorIcons: // redux + navigation + vector icons
                     templateVersion = '0.0.1';
