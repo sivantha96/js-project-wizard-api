@@ -59,7 +59,7 @@ const { execSync } = require("child_process");
 series([ () => {
 console.log("Setting up the project boilerplate"); 
 console.log("Sit back and relax. This will only take few minutes."); 
-execSync("npx react-native init ${name} --template react-native-template-awesome@${templateVersion}"); 
+execSync("npx react-native init ${name} ${templateVersion ? '--template react-native-template-awesome@' + templateVersion : ''}"); 
 
 var pkg=require('./${name}/package.json'); 
 pkg.author='${author}'; 
@@ -72,7 +72,7 @@ execSync(\`cd ${name} && git init -q\`);
 
 execSync(\`cd ${name} && git add .\`); 
 
-execSync(\`cd ${name} &&  git commit -m 'Initial commit'\`); 
+execSync(\`cd ${name} && git commit -m 'Initial commit'\`); 
 
 console.log(\`Project Initialized Successfully.\`)},]);
 
