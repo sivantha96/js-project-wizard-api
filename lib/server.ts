@@ -15,8 +15,8 @@ app.use(new GlobalErrorHandler().handler);
 
 app.listen(PORT, () => {
     console.log(`${process.env.npm_package_name || ''} API is listening on port ${PORT}`);
-    if (process.env.NODE_ENV === 'production') {
-        console.log('PRODUCTION MODE: console.log() is disabled.');
-        console.log = () => {};
-    }
+    // if (process.env.NODE_ENV === 'production') {
+    //     console.log('PRODUCTION MODE: console.log() is disabled.');
+    //     console.log = () => {};
+    // }
 });
