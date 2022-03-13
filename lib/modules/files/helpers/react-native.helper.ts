@@ -21,6 +21,7 @@ export const getExtraFiles = (features: FeatureContent[], projectName: string) =
                         path: `./${projectName}/${feature.path}`,
                         content: fileContent,
                     });
+                    console.log(fileContent, file)
                 });
             } catch (error) {
                 reject(error);
@@ -45,6 +46,7 @@ export const generateMainFile = (name: string, templateVersion: string, author: 
         try {
             const extra = await getExtraFiles(files, name);
             console.log(extra, 'extra - generateMainFile')
+            console.log(JSON.stringify(files), 'files - generateMainFile')
             const mainFile = `
 
 const fs = require("fs"); 
