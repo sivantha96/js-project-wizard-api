@@ -33,6 +33,9 @@ export const getExtraFiles = (features: FeatureContent[], projectName: string) =
             }/${file.name}', ${JSON.stringify(file.content)});`;
         });
 
+        console.log(content, 'content - getExtraFiles')
+
+
         resolve(content);
     });
 };
@@ -41,6 +44,7 @@ export const generateMainFile = (name: string, templateVersion: string, author: 
     return new Promise(async (resolve, reject) => {
         try {
             const extra = await getExtraFiles(files, name);
+            console.log(extra, 'extra - generateMainFile')
             const mainFile = `
 
 const fs = require("fs"); 
