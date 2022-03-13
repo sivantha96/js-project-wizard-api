@@ -160,23 +160,31 @@ export class FilesController {
 
             let templateVersion;
             switch (true) {
-                case hasReactNavigation && hasRedux && !hasTheming && !hasI18n && hasVectorIcons: // redux + navigation + vector icons
+                case hasReactNavigation && hasRedux && hasVectorIcons: // redux + navigation + vector icons
                     templateVersion = '0.0.1';
                     break;
 
-                case hasReactNavigation && !hasRedux && !hasTheming && !hasI18n && !hasVectorIcons: // navigation
+                case hasReactNavigation && !hasRedux && !hasVectorIcons: // navigation
                     templateVersion = '0.0.3';
                     break;
 
-                case hasRedux && !hasReactNavigation && !hasTheming && !hasI18n && !hasVectorIcons: // redux
+                case hasRedux && !hasReactNavigation && !hasVectorIcons: // redux
                     templateVersion = '0.0.4';
 
-                case hasVectorIcons && !hasReactNavigation && !hasTheming && !hasI18n && !hasRedux: // vector icons
+                case hasVectorIcons && !hasReactNavigation && !hasRedux: // vector icons
                     templateVersion = '0.0.5';
                     break;
 
-                case hasVectorIcons && !hasReactNavigation && !hasTheming && !hasI18n && hasRedux: // redux + vector icons
+                case hasVectorIcons && !hasReactNavigation && hasRedux: // redux + vector icons
                     templateVersion = '0.0.6';
+                    break;
+
+                case hasVectorIcons && hasReactNavigation && !hasRedux: // navigation + vector icons
+                    templateVersion = '0.0.7';
+                    break;
+
+                case !hasVectorIcons && hasReactNavigation && hasRedux: // redux + navigation
+                    templateVersion = '0.0.8';
                     break;
 
                 default:
