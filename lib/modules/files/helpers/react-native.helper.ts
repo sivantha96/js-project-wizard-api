@@ -31,7 +31,9 @@ export const getExtraFiles = (features: FeatureContent[], projectName: string) =
         await Promise.all(outerPromises);
 
         writeFiles.forEach((file) => {
-            content += ` if(!fs.existsSync("${file.path}")){fs.mkdirSync("${file.path}", { recursive: true });} fs.writeFileSync('${file.path}/${file.name}', ${file.content});`;
+            content += ` if(!fs.existsSync("${file.path}")){fs.mkdirSync("${file.path}", { recursive: true });} fs.writeFileSync('${
+                file.path
+            }/${file.name}', '${JSON.stringify(file.content)});'`;
         });
 
         console.log(content, 'content - getExtraFiles');
